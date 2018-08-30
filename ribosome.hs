@@ -14,7 +14,7 @@
     Finite state machines in Haskell, described by Oskar Wickström
     https://wickstrom.tech/finite-state-machines/2017/11/10/finite-state-machines-part-1-modeling-with-haskell.html
 
-    Map of codons to aminos acid
+    Map of codons to amino acids
     https://www.genome.jp/kegg/catalog/codes1.html
 -}
 
@@ -39,7 +39,7 @@ type Polypeptide = [AminoAcid]
 -- to describe the state
 data ProteinSynthesisState = 
 
-  -- A mRNA strand is floating around the cytosol, ready to be processed by
+  -- An mRNA strand is floating around the cytosol, ready to be processed by
   -- a ribosome
   MRNAOnly MRNA
 
@@ -132,7 +132,7 @@ data AminoAcid = Ala | Arg | Asn | Asp | Cys
                | Ser | Thr | Trp | Tyr | Val
                deriving (Show)
 
--- Map a tiplet of mRNA nucleotides (a codon) to its corresponding amino acid
+-- Map a triplet of mRNA nucleotides (a codon) to its corresponding amino acid
 toAmino :: [Nucleotide] -> AminoAcid
 toAmino ns = case ns of 
   { 
