@@ -32,7 +32,7 @@ type MRNA        = [Nucleotide]
 
 -- A polypeptide is a sequence of linked amino acids emitted from the ribosome
 -- and folded later into a protein. Building this from a starting mRNA strand
--- is the purpose of the code in file
+-- is the purpose of the code in this file
 type Polypeptide = [AminoAcid]
 
 -- Roughly the states a polypeptide assembly can be in and the "data" required
@@ -91,7 +91,7 @@ synthesize (RibosomeWithPolypeptide mRNA polypeptide) Detach =
     then return $ Assembled polypeptide
     else error "Detaching early from mRNA strand, assembly incomplete"
 
--- Run the finite machine by folding over a list of events
+-- Run the finite state machine by folding over a list of events
 runFsm :: Foldable f => FSM s e -> s -> f e -> IO s
 runFsm = foldM
 
