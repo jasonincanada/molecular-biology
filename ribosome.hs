@@ -75,13 +75,15 @@ synthesize (MRNAOnly mRNA) RecruitRibosome =
 synthesize (RibosomeLoaded mRNA) ProcessCodon =
   return $ RibosomeWithPolypeptide mRNA' polypeptide'
            where polypeptide' = [amino]
-                 amino        = toAmino $ take 3 mRNA
+                 amino        = toAmino codon
+                 codon        = take 3 mRNA
                  mRNA'        = drop 3 mRNA
 
 synthesize (RibosomeWithPolypeptide mRNA polypeptide) ProcessCodon =
   return $ RibosomeWithPolypeptide mRNA' polypeptide'
            where polypeptide' = polypeptide ++ [amino]
-                 amino        = toAmino $ take 3 mRNA
+                 amino        = toAmino codon
+                 codon        = take 3 mRNA
                  mRNA'        = drop 3 mRNA
 
 synthesize (RibosomeWithPolypeptide mRNA polypeptide) Detach =
