@@ -59,9 +59,9 @@ data Assembled
 
 -- Our concrete state type, holding the accumulated data as function args
 data SynthesisState s where
-  MRNAOnly                :: MRNA                -> SynthesisState MRNAOnly
-  RibosomeLoaded          :: MRNA -> Polypeptide -> SynthesisState RibosomeLoaded
-  Assembled               :: Polypeptide         -> SynthesisState Assembled
+  MRNAOnly       :: MRNA                -> SynthesisState MRNAOnly
+  RibosomeLoaded :: MRNA -> Polypeptide -> SynthesisState RibosomeLoaded
+  Assembled      :: Polypeptide         -> SynthesisState Assembled
 
 
 -- Encode the events of the synthesis pathway as a type class. This is a bit specialized to protein
@@ -69,12 +69,12 @@ data SynthesisState s where
 class ProteinSynthesis m where
   type State m :: * -> *
 
-  initial         :: MRNA                      -> m (State m MRNAOnly)
-  recruitRibosome :: (State m MRNAOnly)        -> m (State m RibosomeLoaded)
-  processCodon    :: (State m RibosomeLoaded)  -> m (State m RibosomeLoaded)
-  isFinished      :: (State m RibosomeLoaded)  -> m Bool
-  detach          :: (State m RibosomeLoaded)  -> m (State m Assembled)
-  end             :: (State m Assembled)       -> m Polypeptide
+  initial         :: MRNA                   -> m (State m MRNAOnly)
+  recruitRibosome :: State m MRNAOnly       -> m (State m RibosomeLoaded)
+  processCodon    :: State m RibosomeLoaded -> m (State m RibosomeLoaded)
+  isFinished      :: State m RibosomeLoaded -> m Bool
+  detach          :: State m RibosomeLoaded -> m (State m Assembled)
+  end             :: State m Assembled      -> m Polypeptide
 
 
 -- The type we'll instantiate our ProteinSynthesis class on
