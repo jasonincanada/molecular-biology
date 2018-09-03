@@ -91,7 +91,8 @@ instance (MonadIO m) => ProteinSynthesis (ProteinSynthesisT m) where
                                   = return $ RibosomeLoaded mRNA' poly'
                                              where mRNA' = drop 3 mRNA
                                                    codon = nextCodon mRNA
-                                                   poly' = toAmino codon : poly
+                                                   amino = toAmino codon
+                                                   poly' = amino : poly
 
   isFinished (RibosomeLoaded mRNA _) = return $ empty || stop
                                                 where empty = null mRNA
